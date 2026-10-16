@@ -283,7 +283,10 @@ export const FONT_OPTIONS = [
     name: 'Classic Serif',
     stack: "'Playfair Display', ui-serif, Georgia, 'Times New Roman', serif",
   },
-  { id: 'jost', name: 'Modern Sans', stack: "'Jost', ui-sans-serif, system-ui, sans-serif" },
+  // `id` stays 'jost' for backwards compatibility with saved projects even
+  // though the stack is now Google Sans - renaming the id would invalidate
+  // every stored design config that referenced it.
+  { id: 'jost', name: 'Modern Sans', stack: "'Google Sans', Roboto, ui-sans-serif, system-ui, sans-serif" },
   { id: 'caveat', name: 'Handwritten', stack: "'Caveat', 'Bradley Hand', ui-serif, cursive" },
 ] as const
 

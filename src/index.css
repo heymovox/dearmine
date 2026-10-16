@@ -17,7 +17,11 @@
      renders in something with the right shape (serif / sans / script).
      ------------------------------------------------------------------- */
   --font-display: 'Cormorant Garamond', 'Cormorant', ui-serif, Georgia, 'Times New Roman', serif;
-  --font-body: 'Jost', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  /* Google Sans is a UI-optimised neo-grotesque: it carries body copy, forms
+     and admin tables. The romantic character comes from the serif display
+     and script hand faces. Served as static 400/500/600/700 only, so the
+     body weight is 400 - there is no light instance to fall back to. */
+  --font-body: 'Google Sans', Roboto, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
   --font-hand: 'Caveat', 'Bradley Hand', 'Segoe Script', ui-serif, cursive;
 
   /* Fluid semantic scale -> generates text-hero, text-display, text-title,
@@ -70,13 +74,16 @@
     background-color: var(--color-burgundy);
     color: var(--color-ink);
     font-family: var(--font-body);
-    font-weight: 300;
-    line-height: 1.75;
+    font-weight: 400;
+    line-height: 1.7;
     letter-spacing: 0.005em;
-    /* Consistent kerning/ligatures across every fallback in the stack. */
+    /* Correct kerning/ligatures across every fallback in the stack. */
     font-kerning: normal;
     font-variant-ligatures: common-ligatures;
     font-feature-settings: 'kern' 1, 'liga' 1, 'clig' 1;
+    /* Google Sans has an optical-size axis; honoured when self-hosted as a
+       variable font, harmless with the static instances served by Google. */
+    font-optical-sizing: auto;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;

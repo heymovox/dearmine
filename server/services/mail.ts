@@ -53,7 +53,7 @@ export async function sendMail(message: MailMessage): Promise<{ delivered: boole
 }
 
 function wrap(title: string, body: string, cta?: { label: string; url: string }) {
-  return `<!doctype html><html><body style="margin:0;background:#fff8f0;font-family:Jost,Arial,sans-serif;color:#3a1220">
+  return `<!doctype html><html><body style="margin:0;background:#fff8f0;font-family:'Google Sans',Arial,sans-serif;color:#3a1220">
   <div style="max-width:560px;margin:0 auto;padding:32px 24px">
     <h1 style="font-family:Georgia,serif;color:#4a1025;font-size:22px">${title}</h1>
     <div style="font-size:15px;line-height:1.7;color:#3a1220">${body}</div>
