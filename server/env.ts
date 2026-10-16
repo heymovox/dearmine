@@ -24,7 +24,7 @@ const envSchema = z.object({
   SMTP_PORT: z.coerce.number().int().default(587),
   SMTP_USER: z.string().optional().default(''),
   SMTP_PASS: z.string().optional().default(''),
-  MAIL_FROM: z.string().default('LoveSurprise <no-reply@lovesurprise.in>'),
+  MAIL_FROM: z.string().default('Dearmine <no-reply@dearmine.in>'),
 
   PAYMENT_PROVIDER: z.enum(['mock', 'razorpay']).default('mock'),
   RAZORPAY_KEY_ID: z.string().optional().default(''),
@@ -41,9 +41,9 @@ const envSchema = z.object({
 
   ADMIN_EMAIL: z.string().optional().default(''),
 
-  BRAND_NAME: z.string().default('LoveSurprise'),
+  BRAND_NAME: z.string().default('Dearmine'),
   BRAND_TAGLINE: z.string().default('Every Love Story Deserves a Surprise.'),
-  SUPPORT_EMAIL: z.string().default('support@lovesurprise.in'),
+  SUPPORT_EMAIL: z.string().default('support@dearmine.in'),
   CURRENCY: z.string().default('INR'),
 
   // Comma separated list of allowed browser origins for credentialed requests.

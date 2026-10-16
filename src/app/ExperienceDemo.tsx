@@ -1,6 +1,6 @@
 /**
  * The original single-page Mumaaa birthday experience, kept as a live demo of
- * what a finished LoveSurprise site looks like. Available at /demo.
+ * what a finished Dearmine site looks like. Available at /demo.
  */
 import { AnimatePresence, motion } from 'framer-motion'
 import { useCallback, useEffect, useRef, useState } from 'react'

@@ -143,7 +143,7 @@ export async function deleteAccount(userId: string, password: string): Promise<v
     prisma.session.deleteMany({ where: { userId } }),
     prisma.user.update({
       where: { id: userId },
-      data: { deletedAt: new Date(), email: `deleted+${userId}@lovesurprise.invalid`, name: 'Deleted account' },
+      data: { deletedAt: new Date(), email: `deleted+${userId}@dearmine.invalid`, name: 'Deleted account' },
     }),
     prisma.surpriseProject.updateMany({ where: { ownerId: userId }, data: { deletedAt: new Date(), status: 'ARCHIVED' } }),
     prisma.publishedPage.updateMany({

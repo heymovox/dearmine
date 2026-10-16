@@ -117,7 +117,7 @@ describe('constants', () => {
   })
 
   it('brand metadata is populated', () => {
-    expect(BRAND.name).toBe('LoveSurprise')
+    expect(BRAND.name).toBe('Dearmine')
     expect(BRAND.currency).toBe('INR')
   })
 

@@ -1,14 +1,14 @@
 /**
- * LoveSurprise — shared constants.
+ * Dearmine — shared constants.
  * Isomorphic: imported by both the API server and the web client.
  */
 
 export const BRAND = {
-  name: 'LoveSurprise',
-  tagline: 'Every Love Story Deserves a Surprise.',
+  name: 'Dearmine',
+  tagline: 'Personalized surprises for your special one.',
   description:
     'Create a beautiful, personalized birthday surprise, love letter or romantic website in minutes. Choose a design, add your memories, and share a link made just for someone special.',
-  supportEmail: 'support@lovesurprise.in',
+  supportEmail: 'support@dearmine.in',
   currency: 'INR',
 } as const
 

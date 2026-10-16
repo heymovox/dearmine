@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-# LoveSurprise API — Node/Express + Prisma on Neon.
+# Dearmine API — Node/Express + Prisma on Neon.
 # The web app is deployed separately (Vercel); this image serves the REST API only.
 
 FROM node:22-slim

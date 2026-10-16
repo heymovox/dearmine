@@ -138,7 +138,7 @@ async function seedAdmin() {
     update: { role: 'ADMIN', deletedAt: null },
     create: {
       email,
-      name: process.env.ADMIN_NAME ?? 'LoveSurprise Admin',
+      name: process.env.ADMIN_NAME ?? 'Dearmine Admin',
       passwordHash,
       role: 'ADMIN',
       emailVerifiedAt: new Date(),

@@ -1,4 +1,4 @@
-/** Thin typed fetch wrapper for the LoveSurprise API (session-cookie based). */
+/** Thin typed fetch wrapper for the Dearmine API (session-cookie based). */
 
 export type ApiErrorBody = {
   code: string
@@ -31,7 +31,7 @@ type RequestOptions = {
 /**
  * API base. Defaults to the same-origin `/api/v1` (Vite dev proxy in
  * development). Set `VITE_API_BASE_URL` when the API is deployed on a
- * different origin than the web app, e.g. `https://api.lovesurprise.in`.
+ * different origin than the web app, e.g. `https://api.dearmine.in`.
  */
 const API_ORIGIN = (import.meta.env.VITE_API_BASE_URL ?? '').replace(/\/$/, '')
 const BASE = `${API_ORIGIN}/api/v1`

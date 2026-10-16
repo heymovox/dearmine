@@ -62,7 +62,7 @@ export default function RegisterPage() {
           <label className="flex items-start gap-2 text-sm text-ink/80">
             <input type="checkbox" className="mt-1 h-4 w-4 rounded border-burgundy/30" {...register('acceptTerms')} />
             <span>
-              I agree to use LoveSurprise responsibly and to only share photos and words I have the right to use.
+              I agree to use Dearmine responsibly and to only share photos and words I have the right to use.
             </span>
           </label>
           {errors.acceptTerms && <span className="text-xs font-medium text-red-600">{errors.acceptTerms.message}</span>}

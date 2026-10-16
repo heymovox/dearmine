@@ -91,7 +91,7 @@ export default function CheckoutPage() {
       amount: checkoutInfo.amountPaise,
       currency: checkoutInfo.currency,
       order_id: checkoutInfo.providerOrderId,
-      name: 'LoveSurprise',
+      name: 'Dearmine',
       description: `${order.plan.name} plan`,
       handler: async (response: {
         razorpay_order_id: string

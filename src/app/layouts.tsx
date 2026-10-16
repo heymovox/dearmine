@@ -8,7 +8,6 @@ import {
   Receipt,
   Settings,
   ShieldCheck,
-  Sparkles,
   X,
 } from 'lucide-react'
 import { useEffect, useState } from 'react'
@@ -18,13 +17,10 @@ import { Container, LinkButton, Button } from './ui'
 
 /* ------------------------------------------------------------------ header */
 
-function BrandMark({ tone = 'light' }: { tone?: 'light' | 'dark' }) {
+function BrandMark({ className = '' }: { className?: string }) {
   return (
-    <Link to="/" className="flex items-center gap-2">
-      <Sparkles className={tone === 'light' ? 'h-5 w-5 text-rose-gold' : 'h-5 w-5 text-romantic'} aria-hidden />
-      <span className={`font-display text-xl tracking-wide ${tone === 'light' ? 'text-cream' : 'text-ink'}`}>
-        {BRAND.name}
-      </span>
+    <Link to="/" className={`flex items-center ${className}`}>
+      <img src="/brand/dearmine-logo.png" alt={BRAND.name} className="h-12 w-auto sm:h-14" />
     </Link>
   )
 }

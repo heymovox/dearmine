@@ -1,4 +1,4 @@
-# Render Blueprint for the LoveSurprise API (Express + Prisma on Neon).
+# Render Blueprint for the Dearmine API (Express + Prisma on Neon).
 # Docs: https://render.com/docs/blueprint-spec
 #
 # Deploy: Render Dashboard -> New -> Blueprint -> select this repo.
@@ -7,7 +7,7 @@
 
 services:
   - type: web
-    name: lovesurprise-api
+    name: dearmine-api
     runtime: docker
     dockerfilePath: ./Dockerfile
     # "ohio" is the closest Render region to the Neon DB (aws us-east-2).

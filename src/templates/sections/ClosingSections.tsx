@@ -89,7 +89,7 @@ export function FinaleSection({ variant = 'finale' }: { variant?: 'finale' | 'ce
 
         <Fade delay={0.5}>
           <p className="mt-2 font-body text-[11px] tracking-[0.3em] uppercase opacity-55">
-            Made with LoveSurprise ♥
+            Made with Dearmine ♥
           </p>
         </Fade>
       </div>

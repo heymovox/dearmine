@@ -97,7 +97,7 @@ export function createApp(): express.Express {
   app.get('/api/health', (_req, res) => {
     sendOk(res, {
       ok: true,
-      service: 'lovesurprise-api',
+      service: 'dearmine-api',
       provider: { storage: storage().name, payments: env.PAYMENT_PROVIDER },
       time: new Date().toISOString(),
     })

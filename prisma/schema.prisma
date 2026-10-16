@@ -1,5 +1,5 @@
 // ---------------------------------------------------------------------------
-// LoveSurprise — Prisma schema (PostgreSQL)
+// Dearmine — Prisma schema (PostgreSQL)
 // ---------------------------------------------------------------------------
 // Run `npm run prisma:migrate` to create/apply migrations locally and
 // `npm run prisma:deploy` in production.

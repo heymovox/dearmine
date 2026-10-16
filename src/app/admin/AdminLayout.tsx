@@ -34,8 +34,8 @@ export function AdminLayout() {
       <header className="sticky top-0 z-40 border-b border-white/10 bg-ink/95 backdrop-blur">
         <div className="mx-auto flex w-full max-w-[1500px] items-center justify-between px-4 py-3 sm:px-6">
           <div className="flex items-center gap-3">
-            <Link to="/admin" className="font-display text-xl tracking-wide text-cream">
-              LoveSurprise
+            <Link to="/admin" className="flex items-center">
+              <img src="/brand/dearmine-logo.png" alt="Dearmine" className="h-11 w-auto" />
             </Link>
             <span className="rounded-full bg-romantic/25 px-2.5 py-0.5 text-xs font-medium uppercase tracking-wider text-rose-gold">
               Admin

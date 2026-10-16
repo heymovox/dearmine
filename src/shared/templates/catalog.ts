@@ -1,5 +1,5 @@
 /**
- * The LoveSurprise template catalog — 40 templates across 4 categories.
+ * The Dearmine template catalog — 40 templates across 4 categories.
  * This is metadata only (isomorphic). The React implementations live in
  * `src/templates` and are mapped from `componentKey` by a static registry.
  */

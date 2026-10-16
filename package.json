@@ -1,9 +1,9 @@
 {
-  "name": "lovesurprise",
+  "name": "dearmine",
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "LoveSurprise — create and publish personalized romantic surprise websites.",
+  "description": "Dearmine — create and publish personalized romantic surprise websites.",
   "scripts": {
     "dev": "concurrently -n web,api -c magenta,cyan \"npm:dev:web\" \"npm:dev:api\"",
     "dev:web": "vite",

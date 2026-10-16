@@ -1,4 +1,4 @@
-/** Small, dependency-free UI kit for the LoveSurprise web app. */
+/** Small, dependency-free UI kit for the Dearmine web app. */
 import {
   createContext,
   useContext,
@@ -311,7 +311,7 @@ export function Pagination({
 
 export function useDocumentTitle(title: string) {
   useEffect(() => {
-    const suffix = 'LoveSurprise'
+    const suffix = 'Dearmine'
     document.title = title ? `${title} | ${suffix}` : suffix
     return () => {
       document.title = suffix

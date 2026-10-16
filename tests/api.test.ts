@@ -25,7 +25,7 @@ describe('GET /api/health', () => {
   it('reports service health with the configured providers', async () => {
     const res = await request(app).get('/api/health').expect(200)
     expect(res.body.data.ok).toBe(true)
-    expect(res.body.data.service).toBe('lovesurprise-api')
+    expect(res.body.data.service).toBe('dearmine-api')
     expect(res.body.data.provider).toMatchObject({ storage: expect.any(String), payments: expect.any(String) })
   })
 })

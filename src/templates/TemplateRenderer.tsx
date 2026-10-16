@@ -222,7 +222,7 @@ function PageFooter({ templateName }: { templateName: string }) {
         color: 'color-mix(in srgb, var(--tpl-surface) 55%, transparent)',
       }}
     >
-      {templateName} · Made with LoveSurprise
+      {templateName} · Made with Dearmine
     </footer>
   )
 }

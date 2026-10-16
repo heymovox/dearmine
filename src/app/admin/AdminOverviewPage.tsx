@@ -26,7 +26,7 @@ export default function AdminOverviewPage() {
 
   return (
     <div className="flex flex-col gap-6">
-      <PageHeader title="Overview" description="Everything happening on LoveSurprise right now." />
+      <PageHeader title="Overview" description="Everything happening on Dearmine right now." />
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {cards.map((card) => (
