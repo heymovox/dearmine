@@ -13,14 +13,16 @@
   --color-ink: #3a1220;
 
   /* ---- Type -----------------------------------------------------------
-     Three roles, each with a full fallback chain so a missing webfont still
-     renders in something with the right shape (serif / sans / script).
+     The app itself is set in Google Sans end to end - it is a UI-optimised
+     neo-grotesque with a tall x-height that stays crisp at hero scale, so
+     headings and body share one family and rely on weight, size and colour
+     for hierarchy rather than on mixing typefaces.
+
+     Cormorant Garamond is still requested, but only for the customer-selectable
+     "Elegant Serif" template font - see FONT_OPTIONS in src/shared/constants.ts.
+     Caveat provides the handwritten accent.
      ------------------------------------------------------------------- */
-  --font-display: 'Cormorant Garamond', 'Cormorant', ui-serif, Georgia, 'Times New Roman', serif;
-  /* Google Sans is a UI-optimised neo-grotesque: it carries body copy, forms
-     and admin tables. The romantic character comes from the serif display
-     and script hand faces. Served as static 400/500/600/700 only, so the
-     body weight is 400 - there is no light instance to fall back to. */
+  --font-display: 'Google Sans', Roboto, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
   --font-body: 'Google Sans', Roboto, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
   --font-hand: 'Caveat', 'Bradley Hand', 'Segoe Script', ui-serif, cursive;
 
@@ -171,12 +173,6 @@
     font-weight: 500;
     letter-spacing: var(--text-eyebrow--letter-spacing);
     text-transform: uppercase;
-  }
-
-  /* Roman numerals / counters that should read as editorial, not UI. */
-  .t-numeral {
-    font-family: var(--font-display);
-    font-variant-numeric: oldstyle-nums proportional-nums;
   }
 
   /* Gradient text used for headings */
