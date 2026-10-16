@@ -84,7 +84,7 @@ export default function PricingPage() {
               <p className="mt-3 text-sm text-ink/70">{plan.description}</p>
 
               <ul className="mt-5 flex-1 space-y-2.5 text-sm text-ink/80">
-                {plan.featuresJson.map((feature) => (
+                {plan.features.map((feature) => (
                   <li key={feature} className="flex items-start gap-2">
                     <Check className="mt-0.5 h-4 w-4 shrink-0 text-romantic" aria-hidden />
                     {feature}

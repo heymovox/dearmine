@@ -16,6 +16,7 @@ import type {
   PlanRow,
   ProjectDTO,
   PublicPageResponse,
+  PublicPlanDTO,
   SupportRequestDTO,
   TemplateDTO,
 } from './types'
@@ -56,10 +57,10 @@ export function useTemplate(slug: string | undefined): UseQueryResult<TemplateDT
   })
 }
 
-export function usePlans(): UseQueryResult<PlanRow[]> {
+export function usePlans(): UseQueryResult<PublicPlanDTO[]> {
   return useQuery({
     queryKey: ['plans'],
-    queryFn: () => api.get<PlanRow[]>('/plans'),
+    queryFn: () => api.get<PublicPlanDTO[]>('/plans'),
     staleTime: 5 * 60_000,
   })
 }

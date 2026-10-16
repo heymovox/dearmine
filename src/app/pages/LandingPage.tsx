@@ -160,7 +160,7 @@ export default function LandingPage() {
                 <p className="mt-1 text-3xl font-semibold text-romantic">{formatINRShort(plan.pricePaise)}</p>
                 <p className="mt-2 text-sm text-ink/70">{plan.description}</p>
                 <ul className="mt-4 space-y-2 text-sm text-ink/80">
-                  {plan.featuresJson.slice(0, 5).map((feature) => (
+                  {plan.features.slice(0, 5).map((feature) => (
                     <li key={feature} className="flex items-start gap-2">
                       <Heart className="mt-0.5 h-3.5 w-3.5 shrink-0 text-rose-gold" aria-hidden />
                       {feature}

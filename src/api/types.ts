@@ -34,6 +34,30 @@ export type TemplateDTO = {
   isFeatured: boolean
 }
 
+export type PlanEntitlement = {
+  maxPhotos: number
+  premiumTemplates: boolean
+  music: boolean
+  advancedAnimations: boolean
+  hostingDays: number
+  revisions: number
+}
+
+/** Public plan shape returned by GET /plans. */
+export type PublicPlanDTO = {
+  id: string
+  slug: string
+  name: string
+  description: string
+  pricePaise: number
+  currency: string
+  features: string[]
+  entitlement: PlanEntitlement
+  hostingDurationDays: number
+  isFeatured: boolean
+}
+
+/** Raw plan row returned by GET /admin/plans. */
 export type PlanRow = {
   id: string
   slug: string
@@ -42,14 +66,7 @@ export type PlanRow = {
   pricePaise: number
   currency: string
   featuresJson: string[]
-  entitlementJson: {
-    maxPhotos: number
-    premiumTemplates: boolean
-    music: boolean
-    advancedAnimations: boolean
-    hostingDays: number
-    revisions: number
-  }
+  entitlementJson: PlanEntitlement
   hostingDurationDays: number
   isFeatured: boolean
   sortOrder: number
