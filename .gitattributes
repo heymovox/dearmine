@@ -1,0 +1,6 @@
+# Keep infrastructure files LF even on Windows checkouts so Docker/CI work.
+Dockerfile text eol=lf
+*.sh text eol=lf
+
+# Normalize text files; leave binaries alone.
+* text=auto
