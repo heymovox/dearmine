@@ -191,6 +191,144 @@
   animation: caret-blink 1s steps(1) infinite;
 }
 
+/* ---------------------------------------------------------------------------
+   LoveSurprise template engine
+   Templates are themed entirely through `--tpl-*` custom properties (set by
+   the palette + font picker), so one component serves every colour scheme.
+   --------------------------------------------------------------------------- */
+@layer components {
+  .tpl-root {
+    min-height: 100dvh;
+    background: var(--tpl-surface);
+    color: var(--tpl-ink);
+    font-family: var(--tpl-font);
+  }
+
+  .tpl-section {
+    position: relative;
+    width: 100%;
+    max-width: 64rem;
+    margin-inline: auto;
+    padding: clamp(2.75rem, 7vw, 5.5rem) clamp(1.15rem, 4vw, 2.5rem);
+  }
+
+  .tpl-kicker {
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--tpl-accent) 88%, var(--tpl-ink) 12%);
+  }
+
+  .tpl-title {
+    font-size: clamp(2rem, 6vw, 3.4rem);
+    line-height: 1.08;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  .tpl-subtitle {
+    font-size: clamp(1rem, 2.4vw, 1.15rem);
+    line-height: 1.7;
+    color: color-mix(in srgb, var(--tpl-ink) 74%, var(--tpl-surface) 26%);
+  }
+
+  .tpl-accent {
+    color: color-mix(in srgb, var(--tpl-accent) 92%, var(--tpl-ink) 8%);
+  }
+
+  .tpl-card {
+    background: color-mix(in srgb, var(--tpl-surface) 74%, #ffffff 26%);
+    color: var(--tpl-ink);
+    border: 1px solid color-mix(in srgb, var(--tpl-accent) 26%, transparent);
+    border-radius: 1.25rem;
+    box-shadow:
+      0 18px 44px -24px color-mix(in srgb, var(--tpl-ink) 55%, transparent),
+      0 1px 0 rgba(255, 255, 255, 0.5) inset;
+  }
+
+  .tpl-card-dark {
+    background: color-mix(in srgb, var(--tpl-ink) 88%, var(--tpl-surface) 12%);
+    color: color-mix(in srgb, var(--tpl-surface) 92%, white 8%);
+    border: 1px solid color-mix(in srgb, var(--tpl-accent) 34%, transparent);
+    border-radius: 1.25rem;
+    box-shadow: 0 22px 60px -30px color-mix(in srgb, var(--tpl-ink) 80%, transparent);
+  }
+
+  .tpl-paper {
+    background:
+      radial-gradient(circle at 18% 22%, color-mix(in srgb, var(--tpl-accent) 8%, transparent), transparent 42%),
+      radial-gradient(circle at 82% 78%, color-mix(in srgb, var(--tpl-soft) 45%, transparent), transparent 46%),
+      var(--tpl-surface);
+    color: var(--tpl-ink);
+    border: 1px solid color-mix(in srgb, var(--tpl-accent) 24%, transparent);
+    box-shadow: 0 24px 60px -30px color-mix(in srgb, var(--tpl-ink) 60%, transparent);
+  }
+
+  .tpl-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 3rem;
+    padding: 0.85rem 1.75rem;
+    border-radius: 999px;
+    background: var(--tpl-accent);
+    color: var(--tpl-surface);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    border: 0;
+    transition:
+      transform 0.25s var(--ease-soft),
+      filter 0.25s ease;
+  }
+
+  .tpl-btn:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.07);
+  }
+
+  .tpl-btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 3rem;
+    padding: 0.85rem 1.75rem;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--tpl-ink);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    border: 1.5px solid color-mix(in srgb, var(--tpl-accent) 55%, transparent);
+    transition:
+      transform 0.25s var(--ease-soft),
+      background 0.25s ease;
+  }
+
+  .tpl-btn-ghost:hover {
+    transform: translateY(-2px);
+    background: color-mix(in srgb, var(--tpl-accent) 12%, transparent);
+  }
+
+  .tpl-divider {
+    height: 1px;
+    width: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      color-mix(in srgb, var(--tpl-accent) 60%, transparent),
+      transparent
+    );
+  }
+}
+
 @keyframes caret-blink {
   0%,
   49% {

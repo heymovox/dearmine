@@ -1,125 +1,120 @@
-import { AnimatePresence, motion } from 'framer-motion'
-import { useCallback, useEffect, useRef, useState } from 'react'
-import { MusicProvider } from './audio/MusicProvider'
-import { useMusic } from './audio/musicContext'
-import MusicToggle from './components/MusicToggle'
-import ScreenProgress from './components/ScreenProgress'
-import { screenOrder } from './config/siteConfig'
-import type { ScreenId } from './config/siteConfig'
-import { screenTransition, usePrefersReducedMotion } from './lib/motion'
-import BirthdayScreen from './screens/BirthdayScreen'
-import FinaleScreen from './screens/FinaleScreen'
-import LetterScreen from './screens/LetterScreen'
-import MemoriesScreen from './screens/MemoriesScreen'
-import WelcomeScreen from './screens/WelcomeScreen'
-
-const LIGHT_SCREENS: ScreenId[] = ['welcome', 'birthday', 'finale']
-
-const ENTER = {
-  initial: { opacity: 0, scale: 1.03, y: 14 },
-  animate: { opacity: 1, scale: 1, y: 0 },
-  exit: { opacity: 0, scale: 0.98, y: -10 },
-}
-
-const ENTER_REDUCED = {
-  initial: { opacity: 0 },
-  animate: { opacity: 1 },
-  exit: { opacity: 0 },
-}
-
-function Experience() {
-  const [screen, setScreen] = useState<ScreenId>('welcome')
-  const [opened, setOpened] = useState(false)
-  const reduced = usePrefersReducedMotion()
-  const { restart } = useMusic()
-  const scrollerRef = useRef<HTMLDivElement>(null)
-
-  /** Plain navigation between screens. */
-  const navigate = useCallback((id: ScreenId) => {
-    setScreen(id)
-  }, [])
-
-  /** Forward one step, never past the end. */
-  const goNext = useCallback(() => {
-    const i = screenOrder.indexOf(screen)
-    setScreen(screenOrder[Math.min(i + 1, screenOrder.length - 1)])
-  }, [screen])
-
-  /** Full replay: back to the door, song restarts from the beginning. */
-  const replay = useCallback(() => {
-    restart()
-    setOpened(false)
-    setScreen('welcome')
-  }, [restart])
-
-  /** Finale buttons: anything that isn't the welcome screen is a jump; welcome = replay. */
-  const handleFinaleAction = useCallback(
-    (id: ScreenId) => {
-      if (id === 'welcome') replay()
-      else navigate(id)
-    },
-    [navigate, replay],
-  )
-
-  /** Welcome → Birthday. */
-  const handleOpen = useCallback(() => {
-    setOpened(true)
-    setScreen('birthday')
-  }, [])
-
-  /** Every screen change starts at the top — nobody lands mid-paragraph. */
-  useEffect(() => {
-    scrollerRef.current?.scrollTo({ top: 0, behavior: 'auto' })
-  }, [screen])
-
-  const variants = reduced ? ENTER_REDUCED : ENTER
-  const tone = LIGHT_SCREENS.includes(screen) ? 'light' : 'dark'
-
-  return (
-    <div className="relative h-[100dvh] w-full overflow-hidden bg-burgundy">
-      {/* Each screen is its own scroll container, so nothing can ever trap the visitor. */}
-      <div
-        ref={scrollerRef}
-        className="h-full w-full overflow-x-hidden overflow-y-auto overscroll-contain"
-      >
-        <AnimatePresence mode="wait" initial={false}>
-          <motion.div
-            key={screen}
-            variants={variants}
-            initial="initial"
-            animate="animate"
-            exit="exit"
-            transition={reduced ? { duration: 0.15 } : screenTransition}
-            className="w-full"
-          >
-            {screen === 'welcome' && <WelcomeScreen onOpen={handleOpen} />}
-            {screen === 'birthday' && <BirthdayScreen onNext={goNext} />}
-            {screen === 'memories' && <MemoriesScreen onNext={goNext} />}
-            {screen === 'letter' && <LetterScreen onNext={goNext} />}
-            {screen === 'finale' && <FinaleScreen onNavigate={handleFinaleAction} />}
-          </motion.div>
-        </AnimatePresence>
-      </div>
-
-      {/* Music toggle — one element for the whole experience, so the song never restarts. */}
-      <div className="pointer-events-none fixed inset-x-0 top-0 z-50 flex items-start justify-between px-4 pt-[max(0.75rem,env(safe-area-inset-top))] sm:px-6">
-        <MusicToggle tone={tone} className="pointer-events-auto" />
-      </div>
-
-      <ScreenProgress
-        current={screen}
-        onNavigate={navigate}
-        visible={opened && screen !== 'welcome'}
-        tone={tone}
-      />
-    </div>
-  )
-}
+import { Route, Routes } from 'react-router-dom'
+import ExperienceDemo from './app/ExperienceDemo'
+import { DashboardLayout, PublicLayout } from './app/layouts'
+import { RedirectIfAuthed, RequireAdmin, RequireAuth } from './app/guards'
+import { AdminLayout } from './app/admin/AdminLayout'
+import AdminAuditPage from './app/admin/AdminAuditPage'
+import AdminCouponsPage from './app/admin/AdminCouponsPage'
+import AdminOrdersPage from './app/admin/AdminOrdersPage'
+import AdminOverviewPage from './app/admin/AdminOverviewPage'
+import AdminPlansPage from './app/admin/AdminPlansPage'
+import AdminProjectsPage from './app/admin/AdminProjectsPage'
+import AdminSupportPage from './app/admin/AdminSupportPage'
+import AdminTemplatesPage from './app/admin/AdminTemplatesPage'
+import AdminUsersPage from './app/admin/AdminUsersPage'
+import AccountPage from './app/pages/AccountPage'
+import CheckoutPage from './app/pages/CheckoutPage'
+import DashboardOverviewPage from './app/pages/DashboardOverviewPage'
+import ForgotPasswordPage from './app/pages/ForgotPasswordPage'
+import LandingPage from './app/pages/LandingPage'
+import LoginPage from './app/pages/LoginPage'
+import NotFoundPage from './app/pages/NotFoundPage'
+import OrdersPage from './app/pages/OrdersPage'
+import PricingPage from './app/pages/PricingPage'
+import ProjectEditorPage from './app/pages/ProjectEditorPage'
+import ProjectsPage from './app/pages/ProjectsPage'
+import PublicSurprisePage from './app/pages/PublicSurprisePage'
+import RegisterPage from './app/pages/RegisterPage'
+import ResetPasswordPage from './app/pages/ResetPasswordPage'
+import SupportPage from './app/pages/SupportPage'
+import TemplateDetailPage from './app/pages/TemplateDetailPage'
+import TemplatesPage from './app/pages/TemplatesPage'
+import VerifyEmailPage from './app/pages/VerifyEmailPage'
 
 export default function App() {
   return (
-    <MusicProvider>
-      <Experience />
-    </MusicProvider>
+    <Routes>
+      {/* Standalone, full-bleed pages */}
+      <Route path="/s/:publicId" element={<PublicSurprisePage />} />
+      <Route path="/demo" element={<ExperienceDemo />} />
+      <Route
+        path="/editor/:projectId"
+        element={
+          <RequireAuth>
+            <ProjectEditorPage />
+          </RequireAuth>
+        }
+      />
+      <Route
+        path="/checkout/:orderId"
+        element={
+          <RequireAuth>
+            <CheckoutPage />
+          </RequireAuth>
+        }
+      />
+
+      {/* Public marketing + auth */}
+      <Route element={<PublicLayout />}>
+        <Route index element={<LandingPage />} />
+        <Route path="templates" element={<TemplatesPage />} />
+        <Route path="templates/:slug" element={<TemplateDetailPage />} />
+        <Route path="pricing" element={<PricingPage />} />
+        <Route path="support" element={<SupportPage />} />
+        <Route
+          path="login"
+          element={
+            <RedirectIfAuthed>
+              <LoginPage />
+            </RedirectIfAuthed>
+          }
+        />
+        <Route
+          path="register"
+          element={
+            <RedirectIfAuthed>
+              <RegisterPage />
+            </RedirectIfAuthed>
+          }
+        />
+        <Route path="forgot-password" element={<ForgotPasswordPage />} />
+        <Route path="reset-password" element={<ResetPasswordPage />} />
+        <Route path="verify-email" element={<VerifyEmailPage />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Route>
+
+      {/* Authenticated dashboard */}
+      <Route
+        element={
+          <RequireAuth>
+            <DashboardLayout />
+          </RequireAuth>
+        }
+      >
+        <Route path="/dashboard" element={<DashboardOverviewPage />} />
+        <Route path="/dashboard/projects" element={<ProjectsPage />} />
+        <Route path="/dashboard/orders" element={<OrdersPage />} />
+        <Route path="/dashboard/account" element={<AccountPage />} />
+      </Route>
+
+      {/* Admin */}
+      <Route
+        element={
+          <RequireAdmin>
+            <AdminLayout />
+          </RequireAdmin>
+        }
+      >
+        <Route path="/admin" element={<AdminOverviewPage />} />
+        <Route path="/admin/users" element={<AdminUsersPage />} />
+        <Route path="/admin/projects" element={<AdminProjectsPage />} />
+        <Route path="/admin/orders" element={<AdminOrdersPage />} />
+        <Route path="/admin/templates" element={<AdminTemplatesPage />} />
+        <Route path="/admin/plans" element={<AdminPlansPage />} />
+        <Route path="/admin/coupons" element={<AdminCouponsPage />} />
+        <Route path="/admin/support" element={<AdminSupportPage />} />
+        <Route path="/admin/audit" element={<AdminAuditPage />} />
+      </Route>
+    </Routes>
   )
 }

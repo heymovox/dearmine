@@ -1,0 +1,5 @@
+export { default as TemplateRenderer } from './TemplateRenderer'
+export { TemplateProvider, useTemplate, useThemeVars, type TemplateMode } from './engine/context'
+export { manifestFor, SECTION_MAP, type SectionSpec, type SectionKind, type TemplateManifest } from './registry'
+export { default as AudioBar } from './ui/AudioBar'
+export { default as PhotoGallery } from './ui/PhotoGallery'

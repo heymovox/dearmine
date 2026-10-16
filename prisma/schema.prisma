@@ -1,0 +1,405 @@
+// ---------------------------------------------------------------------------
+// LoveSurprise — Prisma schema (PostgreSQL)
+// ---------------------------------------------------------------------------
+// Run `npm run prisma:migrate` to create/apply migrations locally and
+// `npm run prisma:deploy` in production.
+// ---------------------------------------------------------------------------
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// ---------------------------------------------------------------------------
+// Enums
+// ---------------------------------------------------------------------------
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum ProjectStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+enum AssetType {
+  PHOTO
+  AUDIO
+  COVER
+}
+
+enum Occasion {
+  BIRTHDAY
+  ANNIVERSARY
+  PROPOSAL
+  VALENTINES
+  JUST_BECAUSE
+  OTHER
+}
+
+enum OrderStatus {
+  PENDING
+  CREATED
+  PROCESSING
+  PAID
+  FAILED
+  CANCELLED
+  REFUND_PENDING
+  REFUNDED
+  PARTIALLY_REFUNDED
+}
+
+enum PaymentStatus {
+  CREATED
+  AUTHORIZED
+  CAPTURED
+  FAILED
+  REFUNDED
+  PARTIALLY_REFUNDED
+}
+
+enum PublishedStatus {
+  ACTIVE
+  EXPIRED
+  UNPUBLISHED
+}
+
+enum DiscountType {
+  PERCENT
+  FIXED
+}
+
+enum SupportStatus {
+  OPEN
+  IN_PROGRESS
+  RESOLVED
+  CLOSED
+}
+
+enum EmailTokenType {
+  VERIFY_EMAIL
+  RESET_PASSWORD
+}
+
+// ---------------------------------------------------------------------------
+// Accounts & auth
+// ---------------------------------------------------------------------------
+
+model User {
+  id            String    @id @default(cuid())
+  name          String
+  email         String    @unique
+  passwordHash  String
+  emailVerifiedAt DateTime?
+  role          Role      @default(USER)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  deletedAt     DateTime?
+
+  sessions      Session[]
+  tokens        EmailToken[]
+  projects      SurpriseProject[]
+  orders        Order[]
+  supportRequests SupportRequest[]
+  auditLogs     AuditLog[] @relation("AuditActor")
+
+  @@index([email])
+  @@index([role])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  userId       String
+  tokenHash    String   @unique
+  userAgent    String?
+  ipAddress    String?
+  expiresAt    DateTime
+  createdAt    DateTime @default(now())
+  lastUsedAt   DateTime @default(now())
+
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+model EmailToken {
+  id        String         @id @default(cuid())
+  userId    String
+  type      EmailTokenType
+  tokenHash String         @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime       @default(now())
+
+  user      User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, type])
+}
+
+// ---------------------------------------------------------------------------
+// Templates
+// ---------------------------------------------------------------------------
+
+model TemplateCategory {
+  id          String     @id @default(cuid())
+  name        String
+  slug        String     @unique
+  description String
+  sortOrder   Int        @default(0)
+  isActive    Boolean    @default(true)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  templates   Template[]
+}
+
+model Template {
+  id                 String   @id @default(cuid())
+  slug               String   @unique
+  name               String
+  categoryId         String
+  description        String
+  tagline            String?
+  previewImage       String?
+  componentKey       String   @unique
+  supportedFields    Json     @default("[]")
+  defaultConfiguration Json   @default("{}")
+  requiredPlan       String   @default("mini")
+  occasions          Json     @default("[]")
+  isPublished        Boolean  @default(true)
+  isFeatured         Boolean  @default(false)
+  sortOrder          Int      @default(0)
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  category           TemplateCategory @relation(fields: [categoryId], references: [id])
+  projects           SurpriseProject[]
+
+  @@index([categoryId])
+  @@index([isPublished, isFeatured])
+}
+
+// ---------------------------------------------------------------------------
+// Projects & assets
+// ---------------------------------------------------------------------------
+
+model SurpriseProject {
+  id             String        @id @default(cuid())
+  ownerId        String
+  templateId     String
+  projectTitle   String
+  occasion       Occasion      @default(BIRTHDAY)
+  recipientName  String        @default("")
+  creatorName    String        @default("")
+  nickname       String        @default("")
+  occasionDate   DateTime?
+  status         ProjectStatus @default(DRAFT)
+  contentJson    Json          @default("{}")
+  designConfigJson Json        @default("{}")
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  deletedAt      DateTime?
+
+  owner          User          @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  template       Template      @relation(fields: [templateId], references: [id])
+  assets         ProjectAsset[]
+  orders         Order[]
+  publishedPage  PublishedPage?
+
+  @@index([ownerId])
+  @@index([templateId])
+  @@index([status])
+}
+
+model ProjectAsset {
+  id          String    @id @default(cuid())
+  projectId   String
+  assetType   AssetType @default(PHOTO)
+  storageKey  String
+  url         String
+  mimeType    String
+  sizeBytes   Int
+  width       Int?
+  height      Int?
+  caption     String    @default("")
+  sortOrder   Int       @default(0)
+  createdAt   DateTime  @default(now())
+
+  project     SurpriseProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId, assetType])
+}
+
+// ---------------------------------------------------------------------------
+// Pricing, orders & payments
+// ---------------------------------------------------------------------------
+
+model PricingPlan {
+  id                 String   @id @default(cuid())
+  name               String
+  slug               String   @unique
+  description        String   @default("")
+  pricePaise         Int
+  currency           String   @default("INR")
+  featuresJson       Json     @default("[]")
+  entitlementJson    Json     @default("{}")
+  hostingDurationDays Int     @default(365)
+  isActive           Boolean  @default(true)
+  isFeatured         Boolean  @default(false)
+  sortOrder          Int      @default(0)
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  orders             Order[]
+}
+
+model Coupon {
+  id            String       @id @default(cuid())
+  code          String       @unique
+  discountType  DiscountType
+  discountValue Int
+  startsAt      DateTime?
+  expiresAt     DateTime?
+  usageLimit    Int?
+  perUserLimit  Int          @default(1)
+  usedCount     Int          @default(0)
+  isActive      Boolean      @default(true)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+
+  orders        Order[]
+}
+
+model Order {
+  id                  String      @id @default(cuid())
+  userId              String
+  projectId           String
+  planId              String
+  couponId            String?
+  provider            String      @default("mock")
+  amountPaise         Int
+  currency            String      @default("INR")
+  taxAmountPaise      Int         @default(0)
+  discountAmountPaise Int         @default(0)
+  subtotalPaise       Int
+  status              OrderStatus @default(PENDING)
+  // Immutable snapshot of the purchased plan terms at time of order.
+  planSnapshot        Json
+  createdAt           DateTime    @default(now())
+  updatedAt           DateTime    @updatedAt
+  paidAt              DateTime?
+
+  user                User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  project             SurpriseProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  plan                PricingPlan @relation(fields: [planId], references: [id])
+  coupon              Coupon?     @relation(fields: [couponId], references: [id])
+  payments            Payment[]
+
+  @@index([userId])
+  @@index([projectId])
+  @@index([status])
+}
+
+model Payment {
+  id               String        @id @default(cuid())
+  orderId          String
+  provider         String
+  providerOrderId  String?
+  providerPaymentId String?
+  providerSignature String?
+  amountPaise      Int
+  currency         String        @default("INR")
+  status           PaymentStatus @default(CREATED)
+  method           String?
+  refundedPaise    Int           @default(0)
+  failureReason    String?
+  verifiedAt       DateTime?
+  rawPayload       Json?
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+
+  order            Order         @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@unique([providerOrderId])
+  @@unique([providerPaymentId])
+  @@index([orderId])
+  @@index([status])
+}
+
+// ---------------------------------------------------------------------------
+// Publishing
+// ---------------------------------------------------------------------------
+
+model PublishedPage {
+  id                String          @id @default(cuid())
+  projectId         String          @unique
+  publicId          String          @unique
+  publishedRevision Int             @default(1)
+  status            PublishedStatus @default(ACTIVE)
+  snapshotJson      Json
+  publishedAt       DateTime        @default(now())
+  expiresAt         DateTime?
+  unpublishedAt     DateTime?
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+
+  project           SurpriseProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([publicId])
+  @@index([status, expiresAt])
+}
+
+// ---------------------------------------------------------------------------
+// Support & audit
+// ---------------------------------------------------------------------------
+
+model SupportRequest {
+  id        String        @id @default(cuid())
+  userId    String?
+  name      String        @default("")
+  email     String        @default("")
+  subject   String
+  message   String
+  status    SupportStatus @default(OPEN)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  user      User?         @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([status])
+}
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  actorId    String?
+  action     String
+  entityType String
+  entityId   String?
+  metadata   Json     @default("{}")
+  createdAt  DateTime @default(now())
+
+  actor      User?    @relation("AuditActor", fields: [actorId], references: [id], onDelete: SetNull)
+
+  @@index([actorId])
+  @@index([entityType, entityId])
+  @@index([action])
+}
+
+// ---------------------------------------------------------------------------
+// Platform settings (admin-editable key/value configuration)
+// ---------------------------------------------------------------------------
+
+model Setting {
+  key       String   @id
+  value     Json
+  updatedAt DateTime @updatedAt
+}
