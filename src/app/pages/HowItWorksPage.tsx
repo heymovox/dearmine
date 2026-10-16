@@ -109,7 +109,7 @@ export default function HowItWorksPage() {
 
       <section className="bg-cream-deep py-16">
         <Container>
-          <h2 className="font-display text-3xl text-ink sm:text-4xl">Everything included</h2>
+          <h2 className="font-display text-display text-ink">Everything included</h2>
           <p className="mt-3 max-w-2xl text-sm text-ink/70">
             Every template comes with the same toolkit. What changes is the mood.
           </p>
@@ -127,7 +127,7 @@ export default function HowItWorksPage() {
 
       <section className="bg-cream py-16">
         <Container className="max-w-3xl">
-          <h2 className="font-display text-3xl text-ink sm:text-4xl">Questions people ask</h2>
+          <h2 className="font-display text-display text-ink">Questions people ask</h2>
           <div className="mt-8 space-y-4">
             {FAQ.map((item) => (
               <Card key={item.q}>
@@ -144,7 +144,7 @@ export default function HowItWorksPage() {
 
       <section className="bg-burgundy py-16">
         <Container className="text-center">
-          <h2 className="font-display text-3xl text-cream">Ready when you are</h2>
+          <h2 className="font-display text-display text-cream">Ready when you are</h2>
           <p className="mx-auto mt-3 max-w-xl text-sm text-cream/80">
             Build it free, preview everything, and pay only when it is exactly right.
           </p>

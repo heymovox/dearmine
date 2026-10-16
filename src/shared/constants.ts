@@ -264,11 +264,27 @@ export type PaletteId = (typeof PALETTES)[number]['id']
 /*  Fonts offered in the editor                                                */
 /* -------------------------------------------------------------------------- */
 
+/**
+ * Fonts offered in the editor.
+ *
+ * Every stack ends in a full fallback chain (not a bare `serif`/`sans-serif`)
+ * so a customer's published page still looks intentional if the webfont
+ * fails to load. All four families are requested in index.html — keep this
+ * list and that URL in sync.
+ */
 export const FONT_OPTIONS = [
-  { id: 'cormorant', name: 'Elegant Serif', stack: "'Cormorant Garamond', serif" },
-  { id: 'playfair', name: 'Classic Serif', stack: "'Playfair Display', serif" },
-  { id: 'jost', name: 'Modern Sans', stack: "'Jost', sans-serif" },
-  { id: 'caveat', name: 'Handwritten', stack: "'Caveat', cursive" },
+  {
+    id: 'cormorant',
+    name: 'Elegant Serif',
+    stack: "'Cormorant Garamond', 'Cormorant', ui-serif, Georgia, serif",
+  },
+  {
+    id: 'playfair',
+    name: 'Classic Serif',
+    stack: "'Playfair Display', ui-serif, Georgia, 'Times New Roman', serif",
+  },
+  { id: 'jost', name: 'Modern Sans', stack: "'Jost', ui-sans-serif, system-ui, sans-serif" },
+  { id: 'caveat', name: 'Handwritten', stack: "'Caveat', 'Bradley Hand', ui-serif, cursive" },
 ] as const
 
 export type FontId = (typeof FONT_OPTIONS)[number]['id']

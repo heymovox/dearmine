@@ -39,7 +39,7 @@ export default function LandingPage() {
               <Heart className="h-3.5 w-3.5 text-rose-gold" aria-hidden />
               {BRAND.tagline}
             </span>
-            <h1 className="font-display text-4xl leading-tight text-cream sm:text-5xl lg:text-6xl">
+            <h1 className="font-display text-hero text-cream">
               Turn your feelings into a <span className="text-rose-gradient">website made just for them</span>
             </h1>
             <p className="max-w-xl text-base text-cream/80">{BRAND.description}</p>
@@ -97,7 +97,7 @@ export default function LandingPage() {
         <Container>
           <Reveal>
             <div className="mx-auto max-w-2xl text-center">
-              <h2 className="font-display text-3xl text-ink sm:text-4xl">Three steps, one unforgettable link</h2>
+              <h2 className="font-display text-display text-ink">Three steps, one unforgettable link</h2>
               <p className="mt-3 text-sm text-ink/70">
                 You do not need design skills. Pick a template, type your words, and we handle the rest.
               </p>
@@ -124,7 +124,7 @@ export default function LandingPage() {
         <Container>
           <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <h2 className="font-display text-3xl text-ink sm:text-4xl">Featured templates</h2>
+              <h2 className="font-display text-display text-ink">Featured templates</h2>
               <p className="mt-2 text-sm text-ink/70">A few favourites from the collection of 40.</p>
             </div>
             <Link to="/templates" className="text-sm font-medium text-romantic hover:underline">
@@ -148,7 +148,7 @@ export default function LandingPage() {
       <section className="bg-cream py-20">
         <Container>
           <div className="mx-auto max-w-2xl text-center">
-            <h2 className="font-display text-3xl text-ink sm:text-4xl">Simple, one-time pricing</h2>
+            <h2 className="font-display text-display text-ink">Simple, one-time pricing</h2>
             <p className="mt-3 text-sm text-ink/70">
               Create and preview for free. Pay once when you are ready to share.
             </p>
@@ -181,7 +181,7 @@ export default function LandingPage() {
       {/* Final CTA */}
       <section className="bg-burgundy py-20">
         <Container className="text-center">
-          <h2 className="font-display text-3xl text-cream sm:text-4xl">
+          <h2 className="font-display text-display text-cream">
             Someone you love deserves this today
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-sm text-cream/80">
