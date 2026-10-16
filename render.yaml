@@ -1,0 +1,83 @@
+# Render Blueprint for the LoveSurprise API (Express + Prisma on Neon).
+# Docs: https://render.com/docs/blueprint-spec
+#
+# Deploy: Render Dashboard -> New -> Blueprint -> select this repo.
+# Every `sync: false` variable is prompted for at deploy time and never stored in git.
+# The web app runs on Vercel; point VITE_API_BASE_URL at this service's URL.
+
+services:
+  - type: web
+    name: lovesurprise-api
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    # "ohio" is the closest Render region to the Neon DB (aws us-east-2).
+    region: ohio
+    plan: starter
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+
+      # --- Database (Neon) ---
+      - key: DATABASE_URL
+        sync: false
+      - key: DIRECT_URL
+        sync: false
+
+      # --- Sessions / URLs ---
+      # Render generates a strong secret (>=32 chars, required in production).
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: APP_BASE_URL
+        sync: false
+      - key: API_BASE_URL
+        sync: false
+      - key: PUBLIC_SITE_URL
+        sync: false
+      - key: CORS_ORIGINS
+        sync: false
+      - key: COOKIE_DOMAIN
+        sync: false
+      - key: ADMIN_EMAIL
+        sync: false
+
+      # --- Payments (Razorpay) ---
+      # Setting this to razorpay requires RAZORPAY_KEY_ID and RAZORPAY_KEY_SECRET.
+      - key: PAYMENT_PROVIDER
+        value: razorpay
+      - key: RAZORPAY_KEY_ID
+        sync: false
+      - key: RAZORPAY_KEY_SECRET
+        sync: false
+      - key: RAZORPAY_WEBHOOK_SECRET
+        sync: false
+
+      # --- Storage (Cloudflare R2) ---
+      # Setting this to r2 requires R2_ENDPOINT, R2_BUCKET, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY.
+      - key: STORAGE_PROVIDER
+        value: r2
+      - key: R2_ACCOUNT_ID
+        sync: false
+      - key: R2_ENDPOINT
+        sync: false
+      - key: R2_BUCKET
+        sync: false
+      - key: R2_ACCESS_KEY_ID
+        sync: false
+      - key: R2_SECRET_ACCESS_KEY
+        sync: false
+      - key: PUBLIC_ASSET_BASE_URL
+        sync: false
+
+      # --- Email (optional in production) ---
+      - key: SMTP_HOST
+        sync: false
+      - key: SMTP_PORT
+        value: "587"
+      - key: SMTP_USER
+        sync: false
+      - key: SMTP_PASS
+        sync: false
+      - key: MAIL_FROM
+        sync: false
