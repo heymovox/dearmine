@@ -20,8 +20,9 @@ import { Container, LinkButton, Button } from './ui'
 
 function BrandMark({ className = '' }: { className?: string }) {
   return (
-    <Link to="/" className={`flex items-center ${className}`}>
-      <img src="/brand/dearmine-logo.png" alt={BRAND.name} className="h-12 w-auto sm:h-14" />
+    <Link to="/" className={`flex items-center gap-2.5 ${className}`}>
+      <img src="/brand/dearmine-logo.png" alt="" aria-hidden className="h-9 w-auto sm:h-11" />
+      <span className="font-display text-2xl tracking-wide text-cream">{BRAND.name}</span>
     </Link>
   )
 }
