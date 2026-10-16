@@ -40,7 +40,10 @@ export default function LandingPage() {
               {BRAND.tagline}
             </span>
             <h1 className="font-display text-hero text-cream">
-              Turn your feelings into a <span className="text-rose-gradient">website made just for them</span>
+              Turn your feelings into a{' '}
+              {/* Caveat has a small x-height, so it is nudged up in size to sit
+                  optically level with the serif lead-in at hero scale. */}
+              <span className="font-hand text-[1.08em] leading-[1.05] text-rose-gradient">website made just for them</span>
             </h1>
             <p className="max-w-xl text-base text-cream/80">{BRAND.description}</p>
             <div className="flex flex-wrap items-center gap-3">
