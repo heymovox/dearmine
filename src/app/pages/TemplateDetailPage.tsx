@@ -38,7 +38,7 @@ export default function TemplateDetailPage() {
   const payload = useMemo(() => {
     if (!template) return null
     const key = template.componentKey
-    const photos = meta?.sections.includes('gallery') ? previewPhotosFor(key) : []
+    const photos = meta?.sections.includes('gallery') ? previewPhotosFor() : []
     return {
       templateKey: key,
       templateSlug: template.slug,

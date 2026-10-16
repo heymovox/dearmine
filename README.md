@@ -32,45 +32,23 @@ the name once updates the whole site.
 
 ---
 
-## 2. The photos (already filled in âœ…)
+## 2. The photos (placeholders)
 
-All **23 photos** are installed and resized for fast mobile loading:
+The original personal photos were **removed from this repository** so that no
+private imagery ships with the code. Every entry in `memories.photos`
+(`src/config/siteConfig.ts`) now points at a single neutral placeholder:
 
 ```
-public/images/memory-01.jpg â€¦ memory-23.jpg
+public/images/photo-placeholder.svg
 ```
 
-They were downscaled to a maximum of 1200 px on the long edge, which took the
-folder from **18.3 MB down to 3.2 MB** with no visible loss. EXIF orientation
-was applied, so nothing is sideways.
+### Adding your own photos
+1. Drop your files into `public/images/`.
+2. Point the `src` field of the relevant entries in `memories.photos` at them.
+3. Re-run `npm run build` so the change lands in `dist/`.
 
-**Photo `n` â†’ caption `n`.** Captions live in `src/config/siteConfig.ts` â†’ `memories.photos`.
-
-| # | Caption | # | Caption |
-| --- | --- | --- | --- |
-| 01 | My favourite smile â¤ï¸ | 13 | Your mehndi. My favourite art. ðŸ¤Ž |
-| 02 | This moment, this feeling. | 14 | She's my â¤ï¸ Subrahmanyam |
-| 03 | Even like this, I like you. | 15 | 1994 â†’ 2026. Some love never changes. |
-| 04 | Namma memories, namakkagave. | 16 | Temple light, and you beside me. |
-| 05 | Helmet pettiye bike ride. â¤ï¸ | 17 | The day I married my Muu Maa. |
-| 06 | En Muu Maa, always special. | 18 | A sketch of the people I love most. |
-| 07 | Two cones, one very happy girl. ðŸ¦ | 19 | Chai, city lights, and you. |
-| 08 | Bangles, samosa, and you. ðŸ˜Œ | 20 | Moonlight and my favourite girl. âœ¨ |
-| 09 | Every little detail of us. | 21 | She sleeps. I do not mind at all. |
-| 10 | Sharing food before anything else. | 22 | My safe place. My home. |
-| 11 | Just us, at home. â¤ï¸ | 23 | Saved on my phone. Saved in my heart. |
-| 12 | That soft light, that soft look. | | |
-
-Captions 01, 02, 04 and 06 are the ones you wrote. The rest were written to match
-each photo â€” **edit any of them freely** in `memories.photos`. Photo 15 looks like it
-may be a family photo rather than the two of you, so you may want to reword or drop it.
-
-### Swapping a photo
-1. Replace the file in `public/images/` (keep the name, or update `src` in the config).
-2. Re-run `npm run build` so the change lands in `dist/`.
-
-To add or remove photos, just add or remove entries in the `memories.photos` array â€”
-the grid, the lightbox counter and the prev/next controls all adapt automatically.
+To add or remove photos, add or remove entries in the `memories.photos` array — the
+grid, the lightbox counter and the prev/next controls all adapt automatically.
 
 ---
 
@@ -162,7 +140,7 @@ src/
   screens/                  the five screens
   lib/motion.ts             shared motion + reduced-motion helper
 public/
-  images/                   memory-01..23.jpg (your photos)
+  images/                   photo-placeholder.svg (no personal photos ship with the repo)
   audio/birthday-song.mp3   Uyire-Un-Uyirena.mp3
 ```
 

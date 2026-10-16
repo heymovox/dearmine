@@ -2,16 +2,14 @@
  * Demo photos used ONLY for template previews and the editor's starter content.
  * These are the sample images that ship with the product — they are never
  * presented as a customer's real photos.
+ *
+ * Real customer photos are uploaded through the editor to object storage
+ * (Cloudflare R2 in production, local disk in development), so the repository
+ * never contains personal imagery.
  */
-const TOTAL_DEMO_PHOTOS = 38
+const PLACEHOLDER = '/images/photo-placeholder.svg'
 
-function photo(index: number): string {
-  const n = ((index % TOTAL_DEMO_PHOTOS) + TOTAL_DEMO_PHOTOS) % TOTAL_DEMO_PHOTOS
-  return `/images/memory-${String(n + 1).padStart(2, '0')}.jpg`
-}
-
-/** Six varied sample photos for a given template key (deterministic). */
-export function previewPhotosFor(componentKey: string, count = 6): string[] {
-  const seed = componentKey.split('').reduce((acc, ch) => acc + ch.charCodeAt(0), 0)
-  return Array.from({ length: count }, (_, i) => photo(seed + i * 5))
+/** Sample photos for a template preview. */
+export function previewPhotosFor(count = 6): string[] {
+  return Array.from({ length: count }, () => PLACEHOLDER)
 }

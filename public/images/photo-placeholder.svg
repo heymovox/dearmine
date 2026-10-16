@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="800" height="1000" role="img" aria-label="Photo placeholder">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#4a1025"/>
+      <stop offset="55%" stop-color="#b5284d"/>
+      <stop offset="100%" stop-color="#d1476c"/>
+    </linearGradient>
+    <linearGradient id="sheen" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.16"/>
+      <stop offset="60%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="1000" fill="url(#bg)"/>
+  <rect width="800" height="1000" fill="url(#sheen)"/>
+
+  <g transform="translate(400 452)" fill="none" stroke="#f8dce5" stroke-width="10" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M0 118 C-108 44 -160 -6 -160 -66 C-160 -114 -124 -146 -82 -146 C-46 -146 -18 -128 0 -98 C18 -128 46 -146 82 -146 C124 -146 160 -114 160 -66 C160 -6 108 44 0 118 Z"/>
+  </g>
+
+  <text x="400" y="646" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="46" fill="#fff8f0" letter-spacing="1">Your photo here</text>
+  <text x="400" y="700" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="25" fill="#f8dce5" opacity="0.85">Add your own file</text>
+  <text x="400" y="742" text-anchor="middle" font-family="ui-monospace, 'SFMono-Regular', Consolas, monospace" font-size="21" fill="#f8dce5" opacity="0.7">public/images/</text>
+
+  <rect x="26" y="26" width="748" height="948" fill="none" stroke="#f8dce5" stroke-opacity="0.35" stroke-width="3" rx="14"/>
+</svg>

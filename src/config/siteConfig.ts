@@ -10,7 +10,7 @@
  *  -----------
  *  • Names ......... edit `people`
  *  • Screen text ... edit `welcome`, `birthday`, `memories`, `letter`, `finale`
- *  • Photos ........ drop files into `public/images/` and update `memories.photos`
+ *  • Photos ........ drop your own files into `public/images/` and update `memories.photos`
  *  • Song .......... drop your file into `public/audio/` (or change `audio.src`)
  *  • Colours ....... edit the palette in `theme` (also used by src/index.css)
  * ---------------------------------------------------------------------------
@@ -91,7 +91,7 @@ export type MemoryPhoto = {
 }
 
 /**
- * Photo `n` → `/images/memory-n.jpg`, caption `n`, tilt `n`.
+ * Every entry currently points at `/images/photo-placeholder.svg`.
  * To reorder, swap the entries. To remove a photo, delete its entry.
  * Captions are yours to rewrite — nothing else needs touching.
  */
@@ -101,229 +101,229 @@ export const memories = {
   hint: 'Tap any photo to see it bigger.',
   photos: [
     {
-      src: '/images/memory-01.jpg',
+      src: '/images/photo-placeholder.svg',
       caption: 'My favourite smile ❤️',
       label: 'Photo 1',
       tilt: -3,
     },
     {
-      src: '/images/memory-02.jpg',
+      src: '/images/photo-placeholder.svg',
       caption: 'This moment, this feeling.',
       label: 'Photo 2',
       tilt: 2.5,
     },
     {
-      src: '/images/memory-03.jpg',
+      src: '/images/photo-placeholder.svg',
       caption: 'Even like this, I like you.',
       label: 'Photo 3',
       tilt: -1.5,
     },
     {
-      src: '/images/memory-04.jpg',
+      src: '/images/photo-placeholder.svg',
       caption: 'Namma memories, namakkagave.',
       label: 'Photo 4',
       tilt: 3,
     },
     {
-      src: '/images/memory-05.jpg',
+      src: '/images/photo-placeholder.svg',
       caption: 'Helmet pettiye bike ride. ❤️',
       label: 'Photo 5',
       tilt: -2.5,
     },
     {
-      src: '/images/memory-06.jpg',
+      src: '/images/photo-placeholder.svg',
       caption: `En ${NICK}, always special.`,
       label: 'Photo 6',
       tilt: 2,
     },
     {
-      src: '/images/memory-07.jpg',
+      src: '/images/photo-placeholder.svg',
       caption: 'Two cones, one very happy girl. 🍦',
       label: 'Photo 7',
       tilt: -3.5,
     },
     {
-      src: '/images/memory-08.jpg',
+      src: '/images/photo-placeholder.svg',
       caption: 'Bangles, samosa, and you. 😌',
       label: 'Photo 8',
       tilt: 3.5,
     },
     {
-      src: '/images/memory-09.jpg',
+      src: '/images/photo-placeholder.svg',
       caption: 'Every little detail of us.',
       label: 'Photo 9',
       tilt: -2,
     },
     {
-      src: '/images/memory-10.jpg',
+      src: '/images/photo-placeholder.svg',
       caption: 'Sharing food before anything else.',
       label: 'Photo 10',
       tilt: 1.5,
     },
     {
-      src: '/images/memory-11.jpg',
+      src: '/images/photo-placeholder.svg',
       caption: 'Just us, at home. ❤️',
       label: 'Photo 11',
       tilt: -3,
     },
     {
-      src: '/images/memory-12.jpg',
+      src: '/images/photo-placeholder.svg',
       caption: 'That soft light, that soft look.',
       label: 'Photo 12',
       tilt: 2.5,
     },
     {
-      src: '/images/memory-13.jpg',
+      src: '/images/photo-placeholder.svg',
       caption: 'Your mehndi. My favourite art. 🤎',
       label: 'Photo 13',
       tilt: -1.5,
     },
     {
-      src: '/images/memory-14.jpg',
+      src: '/images/photo-placeholder.svg',
       caption: "She's my ❤️ Subrahmanyam",
       label: 'Photo 14',
       tilt: 3,
     },
     {
-      src: '/images/memory-15.jpg',
+      src: '/images/photo-placeholder.svg',
       caption: '1994 → 2026. Some love never changes.',
       label: 'Photo 15',
       tilt: -2.5,
     },
     {
-      src: '/images/memory-16.jpg',
+      src: '/images/photo-placeholder.svg',
       caption: 'Temple light, and you beside me.',
       label: 'Photo 16',
       tilt: 2,
     },
     {
-      src: '/images/memory-17.jpg',
+      src: '/images/photo-placeholder.svg',
       caption: 'The day I married my Muu Maa.',
       label: 'Photo 17',
       tilt: -3.5,
     },
     {
-      src: '/images/memory-18.jpg',
+      src: '/images/photo-placeholder.svg',
       caption: 'A sketch of the people I love most.',
       label: 'Photo 18',
       tilt: 1.5,
     },
     {
-      src: '/images/memory-19.jpg',
+      src: '/images/photo-placeholder.svg',
       caption: 'Chai, city lights, and you.',
       label: 'Photo 19',
       tilt: -2,
     },
     {
-      src: '/images/memory-20.jpg',
+      src: '/images/photo-placeholder.svg',
       caption: 'Moonlight and my favourite girl. ✨',
       label: 'Photo 20',
       tilt: 3.5,
     },
     {
-      src: '/images/memory-21.jpg',
+      src: '/images/photo-placeholder.svg',
       caption: 'She sleeps. I do not mind at all.',
       label: 'Photo 21',
       tilt: -2.5,
     },
     {
-      src: '/images/memory-22.jpg',
+      src: '/images/photo-placeholder.svg',
       caption: 'My safe place. My home.',
       label: 'Photo 22',
       tilt: 2,
     },
     {
-      src: '/images/memory-23.jpg',
+      src: '/images/photo-placeholder.svg',
       caption: 'Saved on my phone. Saved in my heart.',
       label: 'Photo 23',
       tilt: -1.5,
     },
     {
-      src: '/images/memory-24.jpg',
+      src: '/images/photo-placeholder.svg',
       caption: 'Waiting at the station, together.',
       label: 'Photo 24',
       tilt: 2.5,
     },
     {
-      src: '/images/memory-25.jpg',
+      src: '/images/photo-placeholder.svg',
       caption: 'Same platform. Another memory.',
       label: 'Photo 25',
       tilt: -2,
     },
     {
-      src: '/images/memory-26.jpg',
+      src: '/images/photo-placeholder.svg',
       caption: 'Red wall, happy us.',
       label: 'Photo 26',
       tilt: 3,
     },
     {
-      src: '/images/memory-27.jpg',
+      src: '/images/photo-placeholder.svg',
       caption: 'One more for the same smile.',
       label: 'Photo 27',
       tilt: -1.5,
     },
     {
-      src: '/images/memory-28.jpg',
+      src: '/images/photo-placeholder.svg',
       caption: 'Long drive, no hurry.',
       label: 'Photo 28',
       tilt: 2,
     },
     {
-      src: '/images/memory-29.jpg',
+      src: '/images/photo-placeholder.svg',
       caption: 'Two tickets, one plan.',
       label: 'Photo 29',
       tilt: -3,
     },
     {
-      src: '/images/memory-30.jpg',
+      src: '/images/photo-placeholder.svg',
       caption: 'Hard days we got through. You stayed.',
       label: 'Photo 30',
       tilt: 3.5,
     },
     {
-      src: '/images/memory-31.jpg',
+      src: '/images/photo-placeholder.svg',
       caption: 'Mirror selfie, real smiles.',
       label: 'Photo 31',
       tilt: -2.5,
     },
     {
-      src: '/images/memory-32.jpg',
+      src: '/images/photo-placeholder.svg',
       caption: 'No filter needed.',
       label: 'Photo 32',
       tilt: 1.5,
     },
     {
-      src: '/images/memory-33.jpg',
+      src: '/images/photo-placeholder.svg',
       caption: 'Cheeky moments. 😌',
       label: 'Photo 33',
       tilt: -2,
     },
     {
-      src: '/images/memory-34.jpg',
+      src: '/images/photo-placeholder.svg',
       caption: 'Sleepy days, quiet calls.',
       label: 'Photo 34',
       tilt: 3,
     },
     {
-      src: '/images/memory-35.jpg',
+      src: '/images/photo-placeholder.svg',
       caption: 'Festive colours.',
       label: 'Photo 35',
       tilt: -3.5,
     },
     {
-      src: '/images/memory-36.jpg',
+      src: '/images/photo-placeholder.svg',
       caption: 'Distance is only temporary.',
       label: 'Photo 36',
       tilt: 2.5,
     },
     {
-      src: '/images/memory-37.jpg',
+      src: '/images/photo-placeholder.svg',
       caption: 'Calling my favourite person.',
       label: 'Photo 37',
       tilt: -1.5,
     },
     {
-      src: '/images/memory-38.jpg',
+      src: '/images/photo-placeholder.svg',
       caption: 'Always on call with my people.',
       label: 'Photo 38',
       tilt: 3,

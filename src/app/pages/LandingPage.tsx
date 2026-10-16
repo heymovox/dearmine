@@ -62,7 +62,7 @@ export default function LandingPage() {
             <div className="rotate-2 rounded-[2rem] border border-white/15 bg-white/10 p-3 shadow-2xl backdrop-blur">
               <div className="overflow-hidden rounded-[1.5rem] bg-burgundy-deep">
                 <img
-                  src="/images/memory-05.jpg"
+                  src="/images/photo-placeholder.svg"
                   alt="Example of a personalized surprise website"
                   className="h-72 w-full object-cover sm:h-96"
                   loading="lazy"
