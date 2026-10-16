@@ -20,7 +20,7 @@ export function Container({ children, className = '' }: { children: ReactNode; c
 
 /* ------------------------------------------------------------------ button */
 
-type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger' | 'outline'
+type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger' | 'outline' | 'onDark'
 type ButtonSize = 'sm' | 'md' | 'lg'
 
 const BUTTON_VARIANTS: Record<ButtonVariant, string> = {
@@ -30,6 +30,8 @@ const BUTTON_VARIANTS: Record<ButtonVariant, string> = {
   ghost: 'bg-transparent text-ink hover:bg-blush/60',
   danger: 'bg-red-600 text-white hover:bg-red-500',
   outline: 'border border-romantic/40 bg-white/70 text-romantic hover:bg-blush/50',
+  /** For use on the dark burgundy chrome (header, topbar, footer). */
+  onDark: 'border border-cream/25 bg-transparent text-cream hover:bg-cream/10',
 }
 
 const BUTTON_SIZES: Record<ButtonSize, string> = {

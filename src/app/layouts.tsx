@@ -8,6 +8,7 @@ import {
   Receipt,
   Settings,
   ShieldCheck,
+  Sparkles,
   X,
 } from 'lucide-react'
 import { useEffect, useState } from 'react'
@@ -32,34 +33,67 @@ export function PublicLayout() {
 
   useEffect(() => setOpen(false), [location.pathname])
 
+  const links = [
+    { to: '/', label: 'Home', end: true },
+    { to: '/templates', label: 'Templates', end: false },
+    { to: '/how-it-works', label: 'How It Works', end: false },
+    { to: '/pricing', label: 'Pricing', end: false },
+  ]
+
   return (
     <div className="flex min-h-[100dvh] flex-col bg-cream">
+      {/* Announcement topbar */}
+      <div className="hidden bg-burgundy-deep text-cream/80 lg:block">
+        <Container className="flex h-9 items-center justify-between text-xs">
+          <p className="flex items-center gap-2">
+            <Sparkles className="h-3.5 w-3.5 text-rose-gold" aria-hidden />
+            <span>
+              New here? Use code <span className="font-semibold text-cream">WELCOME10</span> for 10% off
+              your first plan.
+            </span>
+          </p>
+          <p className="flex items-center gap-5">
+            <Link to="/how-it-works" className="transition-colors hover:text-cream">
+              How it works
+            </Link>
+            <a href={`mailto:${BRAND.supportEmail}`} className="transition-colors hover:text-cream">
+              {BRAND.supportEmail}
+            </a>
+          </p>
+        </Container>
+      </div>
+
       <header className="sticky top-0 z-40 border-b border-white/10 bg-burgundy/95 backdrop-blur">
-        <Container className="flex h-16 items-center justify-between">
+        <Container className="flex h-16 items-center justify-between gap-4">
           <BrandMark />
-          <nav className="hidden items-center gap-6 md:flex">
-            <NavLink to="/templates" className="text-sm text-cream/80 transition-colors hover:text-cream">
-              Templates
-            </NavLink>
-            <NavLink to="/pricing" className="text-sm text-cream/80 transition-colors hover:text-cream">
-              Pricing
-            </NavLink>
-            <NavLink to="/support" className="text-sm text-cream/80 transition-colors hover:text-cream">
-              Support
-            </NavLink>
+          <nav className="hidden items-center gap-7 md:flex">
+            {links.map((link) => (
+              <NavLink
+                key={link.to}
+                to={link.to}
+                end={link.end}
+                className={({ isActive }) =>
+                  `text-sm transition-colors ${
+                    isActive ? 'text-cream' : 'text-cream/75 hover:text-cream'
+                  }`
+                }
+              >
+                {link.label}
+              </NavLink>
+            ))}
           </nav>
-          <div className="hidden items-center gap-3 md:flex">
+          <div className="hidden items-center gap-2.5 md:flex">
             {user ? (
               <LinkButton to="/dashboard" variant="primary" size="sm">
-                My surprises
+                Create Surprise
               </LinkButton>
             ) : (
               <>
-                <Link to="/login" className="text-sm text-cream/80 transition-colors hover:text-cream">
-                  Log in
-                </Link>
+                <LinkButton to="/login" variant="onDark" size="sm">
+                  Log In
+                </LinkButton>
                 <LinkButton to="/register" variant="primary" size="sm">
-                  Start free
+                  Create Surprise
                 </LinkButton>
               </>
             )}
@@ -69,6 +103,7 @@ export function PublicLayout() {
             className="text-cream md:hidden"
             onClick={() => setOpen((v) => !v)}
             aria-label="Toggle menu"
+            aria-expanded={open}
           >
             {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
@@ -76,29 +111,34 @@ export function PublicLayout() {
         {open && (
           <div className="border-t border-white/10 bg-burgundy md:hidden">
             <Container className="flex flex-col gap-1 py-3">
-              <Link to="/templates" className="rounded-xl px-3 py-2 text-sm text-cream/90 hover:bg-white/10">
-                Templates
-              </Link>
-              <Link to="/pricing" className="rounded-xl px-3 py-2 text-sm text-cream/90 hover:bg-white/10">
-                Pricing
-              </Link>
+              {links.map((link) => (
+                <Link
+                  key={link.to}
+                  to={link.to}
+                  className="rounded-xl px-3 py-2 text-sm text-cream/90 hover:bg-white/10"
+                >
+                  {link.label}
+                </Link>
+              ))}
               <Link to="/support" className="rounded-xl px-3 py-2 text-sm text-cream/90 hover:bg-white/10">
                 Support
               </Link>
-              {user ? (
-                <Link to="/dashboard" className="rounded-xl px-3 py-2 text-sm text-cream/90 hover:bg-white/10">
-                  My surprises
-                </Link>
-              ) : (
-                <>
-                  <Link to="/login" className="rounded-xl px-3 py-2 text-sm text-cream/90 hover:bg-white/10">
-                    Log in
-                  </Link>
-                  <Link to="/register" className="rounded-xl px-3 py-2 text-sm text-cream/90 hover:bg-white/10">
-                    Start free
-                  </Link>
-                </>
-              )}
+              <div className="mt-2 flex flex-col gap-2 border-t border-white/10 pt-3">
+                {user ? (
+                  <LinkButton to="/dashboard" variant="primary" size="sm" className="justify-center">
+                    Create Surprise
+                  </LinkButton>
+                ) : (
+                  <>
+                    <LinkButton to="/login" variant="onDark" size="sm" className="justify-center">
+                      Log In
+                    </LinkButton>
+                    <LinkButton to="/register" variant="primary" size="sm" className="justify-center">
+                      Create Surprise
+                    </LinkButton>
+                  </>
+                )}
+              </div>
             </Container>
           </div>
         )}
@@ -120,6 +160,11 @@ export function PublicLayout() {
               <li>
                 <Link to="/templates" className="hover:text-cream">
                   Browse templates
+                </Link>
+              </li>
+              <li>
+                <Link to="/how-it-works" className="hover:text-cream">
+                  How it works
                 </Link>
               </li>
               <li>

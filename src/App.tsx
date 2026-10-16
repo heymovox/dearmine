@@ -15,6 +15,7 @@ const PublicSurprisePage = lazy(() => import('./app/pages/PublicSurprisePage'))
 const TemplatesPage = lazy(() => import('./app/pages/TemplatesPage'))
 const TemplateDetailPage = lazy(() => import('./app/pages/TemplateDetailPage'))
 const PricingPage = lazy(() => import('./app/pages/PricingPage'))
+const HowItWorksPage = lazy(() => import('./app/pages/HowItWorksPage'))
 const SupportPage = lazy(() => import('./app/pages/SupportPage'))
 const LoginPage = lazy(() => import('./app/pages/LoginPage'))
 const RegisterPage = lazy(() => import('./app/pages/RegisterPage'))
@@ -74,6 +75,7 @@ export default function App() {
           <Route path="templates" element={<TemplatesPage />} />
           <Route path="templates/:slug" element={<TemplateDetailPage />} />
           <Route path="pricing" element={<PricingPage />} />
+          <Route path="how-it-works" element={<HowItWorksPage />} />
           <Route path="support" element={<SupportPage />} />
           <Route
             path="login"
