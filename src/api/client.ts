@@ -28,7 +28,13 @@ type RequestOptions = {
   raw?: BodyInit
 }
 
-const BASE = '/api/v1'
+/**
+ * API base. Defaults to the same-origin `/api/v1` (Vite dev proxy in
+ * development). Set `VITE_API_BASE_URL` when the API is deployed on a
+ * different origin than the web app, e.g. `https://api.lovesurprise.in`.
+ */
+const API_ORIGIN = (import.meta.env.VITE_API_BASE_URL ?? '').replace(/\/$/, '')
+const BASE = `${API_ORIGIN}/api/v1`
 
 export async function request<T>(path: string, options: RequestOptions = {}): Promise<T> {
   const { method = 'GET', body, signal, raw } = options

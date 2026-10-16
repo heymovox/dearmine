@@ -1,120 +1,135 @@
+import { Suspense, lazy } from 'react'
 import { Route, Routes } from 'react-router-dom'
-import ExperienceDemo from './app/ExperienceDemo'
 import { DashboardLayout, PublicLayout } from './app/layouts'
 import { RedirectIfAuthed, RequireAdmin, RequireAuth } from './app/guards'
 import { AdminLayout } from './app/admin/AdminLayout'
-import AdminAuditPage from './app/admin/AdminAuditPage'
-import AdminCouponsPage from './app/admin/AdminCouponsPage'
-import AdminOrdersPage from './app/admin/AdminOrdersPage'
-import AdminOverviewPage from './app/admin/AdminOverviewPage'
-import AdminPlansPage from './app/admin/AdminPlansPage'
-import AdminProjectsPage from './app/admin/AdminProjectsPage'
-import AdminSupportPage from './app/admin/AdminSupportPage'
-import AdminTemplatesPage from './app/admin/AdminTemplatesPage'
-import AdminUsersPage from './app/admin/AdminUsersPage'
-import AccountPage from './app/pages/AccountPage'
-import CheckoutPage from './app/pages/CheckoutPage'
-import DashboardOverviewPage from './app/pages/DashboardOverviewPage'
-import ForgotPasswordPage from './app/pages/ForgotPasswordPage'
+import { Spinner } from './app/ui'
 import LandingPage from './app/pages/LandingPage'
-import LoginPage from './app/pages/LoginPage'
-import NotFoundPage from './app/pages/NotFoundPage'
-import OrdersPage from './app/pages/OrdersPage'
-import PricingPage from './app/pages/PricingPage'
-import ProjectEditorPage from './app/pages/ProjectEditorPage'
-import ProjectsPage from './app/pages/ProjectsPage'
-import PublicSurprisePage from './app/pages/PublicSurprisePage'
-import RegisterPage from './app/pages/RegisterPage'
-import ResetPasswordPage from './app/pages/ResetPasswordPage'
-import SupportPage from './app/pages/SupportPage'
-import TemplateDetailPage from './app/pages/TemplateDetailPage'
-import TemplatesPage from './app/pages/TemplatesPage'
-import VerifyEmailPage from './app/pages/VerifyEmailPage'
+
+/* Route-level code splitting keeps the initial bundle small; the heavier
+ * pieces (template engine, editor, admin) load on demand. */
+const ExperienceDemo = lazy(() => import('./app/ExperienceDemo'))
+const ProjectEditorPage = lazy(() => import('./app/pages/ProjectEditorPage'))
+const CheckoutPage = lazy(() => import('./app/pages/CheckoutPage'))
+const PublicSurprisePage = lazy(() => import('./app/pages/PublicSurprisePage'))
+const TemplatesPage = lazy(() => import('./app/pages/TemplatesPage'))
+const TemplateDetailPage = lazy(() => import('./app/pages/TemplateDetailPage'))
+const PricingPage = lazy(() => import('./app/pages/PricingPage'))
+const SupportPage = lazy(() => import('./app/pages/SupportPage'))
+const LoginPage = lazy(() => import('./app/pages/LoginPage'))
+const RegisterPage = lazy(() => import('./app/pages/RegisterPage'))
+const ForgotPasswordPage = lazy(() => import('./app/pages/ForgotPasswordPage'))
+const ResetPasswordPage = lazy(() => import('./app/pages/ResetPasswordPage'))
+const VerifyEmailPage = lazy(() => import('./app/pages/VerifyEmailPage'))
+const NotFoundPage = lazy(() => import('./app/pages/NotFoundPage'))
+const DashboardOverviewPage = lazy(() => import('./app/pages/DashboardOverviewPage'))
+const ProjectsPage = lazy(() => import('./app/pages/ProjectsPage'))
+const OrdersPage = lazy(() => import('./app/pages/OrdersPage'))
+const AccountPage = lazy(() => import('./app/pages/AccountPage'))
+const AdminOverviewPage = lazy(() => import('./app/admin/AdminOverviewPage'))
+const AdminUsersPage = lazy(() => import('./app/admin/AdminUsersPage'))
+const AdminProjectsPage = lazy(() => import('./app/admin/AdminProjectsPage'))
+const AdminOrdersPage = lazy(() => import('./app/admin/AdminOrdersPage'))
+const AdminTemplatesPage = lazy(() => import('./app/admin/AdminTemplatesPage'))
+const AdminPlansPage = lazy(() => import('./app/admin/AdminPlansPage'))
+const AdminCouponsPage = lazy(() => import('./app/admin/AdminCouponsPage'))
+const AdminSupportPage = lazy(() => import('./app/admin/AdminSupportPage'))
+const AdminAuditPage = lazy(() => import('./app/admin/AdminAuditPage'))
+
+function RouteFallback() {
+  return (
+    <div className="flex min-h-[60vh] items-center justify-center">
+      <Spinner label="Loading…" />
+    </div>
+  )
+}
 
 export default function App() {
   return (
-    <Routes>
-      {/* Standalone, full-bleed pages */}
-      <Route path="/s/:publicId" element={<PublicSurprisePage />} />
-      <Route path="/demo" element={<ExperienceDemo />} />
-      <Route
-        path="/editor/:projectId"
-        element={
-          <RequireAuth>
-            <ProjectEditorPage />
-          </RequireAuth>
-        }
-      />
-      <Route
-        path="/checkout/:orderId"
-        element={
-          <RequireAuth>
-            <CheckoutPage />
-          </RequireAuth>
-        }
-      />
-
-      {/* Public marketing + auth */}
-      <Route element={<PublicLayout />}>
-        <Route index element={<LandingPage />} />
-        <Route path="templates" element={<TemplatesPage />} />
-        <Route path="templates/:slug" element={<TemplateDetailPage />} />
-        <Route path="pricing" element={<PricingPage />} />
-        <Route path="support" element={<SupportPage />} />
+    <Suspense fallback={<RouteFallback />}>
+      <Routes>
+        {/* Standalone, full-bleed pages */}
+        <Route path="/s/:publicId" element={<PublicSurprisePage />} />
+        <Route path="/demo" element={<ExperienceDemo />} />
         <Route
-          path="login"
+          path="/editor/:projectId"
           element={
-            <RedirectIfAuthed>
-              <LoginPage />
-            </RedirectIfAuthed>
+            <RequireAuth>
+              <ProjectEditorPage />
+            </RequireAuth>
           }
         />
         <Route
-          path="register"
+          path="/checkout/:orderId"
           element={
-            <RedirectIfAuthed>
-              <RegisterPage />
-            </RedirectIfAuthed>
+            <RequireAuth>
+              <CheckoutPage />
+            </RequireAuth>
           }
         />
-        <Route path="forgot-password" element={<ForgotPasswordPage />} />
-        <Route path="reset-password" element={<ResetPasswordPage />} />
-        <Route path="verify-email" element={<VerifyEmailPage />} />
-        <Route path="*" element={<NotFoundPage />} />
-      </Route>
 
-      {/* Authenticated dashboard */}
-      <Route
-        element={
-          <RequireAuth>
-            <DashboardLayout />
-          </RequireAuth>
-        }
-      >
-        <Route path="/dashboard" element={<DashboardOverviewPage />} />
-        <Route path="/dashboard/projects" element={<ProjectsPage />} />
-        <Route path="/dashboard/orders" element={<OrdersPage />} />
-        <Route path="/dashboard/account" element={<AccountPage />} />
-      </Route>
+        {/* Public marketing + auth */}
+        <Route element={<PublicLayout />}>
+          <Route index element={<LandingPage />} />
+          <Route path="templates" element={<TemplatesPage />} />
+          <Route path="templates/:slug" element={<TemplateDetailPage />} />
+          <Route path="pricing" element={<PricingPage />} />
+          <Route path="support" element={<SupportPage />} />
+          <Route
+            path="login"
+            element={
+              <RedirectIfAuthed>
+                <LoginPage />
+              </RedirectIfAuthed>
+            }
+          />
+          <Route
+            path="register"
+            element={
+              <RedirectIfAuthed>
+                <RegisterPage />
+              </RedirectIfAuthed>
+            }
+          />
+          <Route path="forgot-password" element={<ForgotPasswordPage />} />
+          <Route path="reset-password" element={<ResetPasswordPage />} />
+          <Route path="verify-email" element={<VerifyEmailPage />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Route>
 
-      {/* Admin */}
-      <Route
-        element={
-          <RequireAdmin>
-            <AdminLayout />
-          </RequireAdmin>
-        }
-      >
-        <Route path="/admin" element={<AdminOverviewPage />} />
-        <Route path="/admin/users" element={<AdminUsersPage />} />
-        <Route path="/admin/projects" element={<AdminProjectsPage />} />
-        <Route path="/admin/orders" element={<AdminOrdersPage />} />
-        <Route path="/admin/templates" element={<AdminTemplatesPage />} />
-        <Route path="/admin/plans" element={<AdminPlansPage />} />
-        <Route path="/admin/coupons" element={<AdminCouponsPage />} />
-        <Route path="/admin/support" element={<AdminSupportPage />} />
-        <Route path="/admin/audit" element={<AdminAuditPage />} />
-      </Route>
-    </Routes>
+        {/* Authenticated dashboard */}
+        <Route
+          element={
+            <RequireAuth>
+              <DashboardLayout />
+            </RequireAuth>
+          }
+        >
+          <Route path="/dashboard" element={<DashboardOverviewPage />} />
+          <Route path="/dashboard/projects" element={<ProjectsPage />} />
+          <Route path="/dashboard/orders" element={<OrdersPage />} />
+          <Route path="/dashboard/account" element={<AccountPage />} />
+        </Route>
+
+        {/* Admin */}
+        <Route
+          element={
+            <RequireAdmin>
+              <AdminLayout />
+            </RequireAdmin>
+          }
+        >
+          <Route path="/admin" element={<AdminOverviewPage />} />
+          <Route path="/admin/users" element={<AdminUsersPage />} />
+          <Route path="/admin/projects" element={<AdminProjectsPage />} />
+          <Route path="/admin/orders" element={<AdminOrdersPage />} />
+          <Route path="/admin/templates" element={<AdminTemplatesPage />} />
+          <Route path="/admin/plans" element={<AdminPlansPage />} />
+          <Route path="/admin/coupons" element={<AdminCouponsPage />} />
+          <Route path="/admin/support" element={<AdminSupportPage />} />
+          <Route path="/admin/audit" element={<AdminAuditPage />} />
+        </Route>
+      </Routes>
+    </Suspense>
   )
 }
